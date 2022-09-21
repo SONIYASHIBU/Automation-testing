@@ -1,0 +1,92 @@
+package testngPackage;
+
+import org.testng.annotations.Test;
+
+import utility.WebDriverUtility;
+
+import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+
+public class Login extends WebDriverUtility{
+	public static WebDriver driver;
+  @Test(priority=2)
+  public void f() {
+	  String myurl="https://www.saucedemo.com/";
+		String applicationurl=driver.getCurrentUrl();
+		Boolean status ;
+		if(myurl.equals(applicationurl)) {
+			System.out.println("passed");
+			status=true;
+		}else {
+			System.out.println("failed");
+			status=false;
+		}
+		//hard assert
+		Assert.assertEquals(myurl, applicationurl);
+			Assert.assertTrue(status,"Assertion failed for url varification" );
+		
+  }
+  
+  
+  @Test(priority=1)
+  public void g() throws InterruptedException {
+	  WebElement username=driver.findElement(By.id("user-name"));
+  username.sendKeys("standard_user");
+  Thread.sleep(2000);
+  WebElement password=driver.findElement(By.id("password"));
+	  password.sendKeys("secret_sauce");
+	  Thread.sleep(2000);
+  WebElement loginbutton =driver.findElement(By.id("login-button"));
+  loginbutton.click();
+	  Thread.sleep(2000);
+	  WebElement addtocart1=driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]"));
+	  addtocart1.click();
+	  Thread.sleep(2000);
+	  WebElement addtocart2=driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bike-light\"]"));
+	  addtocart2.click();
+	  Thread.sleep(2000);
+	  WebElement addtocart3=driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bolt-t-shirt\"]"));
+	  addtocart3.click();
+	  Thread.sleep(2000);
+	  WebElement addtocart4=driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-fleece-jacket\"]"));
+	  addtocart4.click();
+	  Thread.sleep(4000);
+	  //Select product details
+	  click(By.xpath("//*[@id=\"item_4_img_link\"]/img"));
+	  Thread.sleep(4000);
+	  //back to product
+	  click(By.id("back-to-products"));
+	  Thread.sleep(4000);
+	  
+	//firstname
+	sendKeys(By.id("user-name"),"SONIYA");
+	  
+	  //lastname
+	  sendKeys(By.id("last-name"),"SHIBU");
+	  
+	  //postcode
+	  sendKeys(By.id("postal-code"),"680724");
+	  
+	  //finish
+	 // click(By.xpath("//*[@id=\"finish\"]"));
+	  Thread.sleep(4000);
+	  
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  //WebDriverUtility obj=new WebDriverUtility();
+	  String applicationurl="D:\\selenium\\chromedriver.exe";
+	  String myurl="https://www.saucedemo.com/";
+	  launchBrowser(applicationurl,myurl);
+		driver=WebDriverUtility.driver;
+  }
+@AfterTest
+  public void afterTest() {
+	driver.close();
+  }
+
+}
